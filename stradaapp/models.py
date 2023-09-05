@@ -1,5 +1,5 @@
 from django.db import models
-from uuid import uuid4
+import uuid
 
 # Create your models here.
 
@@ -7,7 +7,7 @@ from uuid import uuid4
 class Product(models.Model):
     pname = models.CharField(max_length=50, verbose_name="Product Name")
 
-    pid = models.CharField(max_length=40, verbose_name="Product ID", primary_key=True, null=False, default=uuid4())
+    pid = models.CharField(max_length=40, verbose_name="Product ID", primary_key=True, null=False, default=uuid.uuid4)
 
     inrdisplay = models.CharField(max_length=10, verbose_name="Display Price (INR)", default="0", blank=False)
     usddisplay = models.CharField(max_length=10, verbose_name="Display Price (USD)", default="0", blank=False)
@@ -29,8 +29,6 @@ class Product(models.Model):
     img9 = models.CharField(max_length=30, verbose_name="Image 10", blank=True, null=True)
 
     desc = models.TextField(max_length=500, verbose_name="Product Description", null=True, blank=True)
-
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Date Created")
 
     def __str__(self):
         return self.pname
@@ -55,7 +53,7 @@ class Order(models.Model):
 
     total = models.IntegerField(verbose_name="Total Amount", blank=False, null=False)
 
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Date Created")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Date Created", null=False, blank=False)
 
     def __str__(self):
         return self.fname + " " + self.lname
@@ -66,7 +64,7 @@ class Message(models.Model):
     email = models.CharField(max_length=100, verbose_name="Email", null=False, blank=False)
     message = models.TextField(max_length=250, verbose_name="Message", null=False, blank=False)
 
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Date Created")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Date Created", null=False, blank=False)
 
     def __str__(self):
         return self.email
